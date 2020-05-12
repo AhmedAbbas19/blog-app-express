@@ -17,6 +17,7 @@ router.get("/", async (req, res, next) => {
   let size = Number(req.query.size) || 10;
 
   const blogs = await Blog.find()
+    .sort({ createdAt: "desc" })
     .skip(start)
     .limit(size)
     .populate("author", {
@@ -24,6 +25,7 @@ router.get("/", async (req, res, next) => {
       blogs: 0,
     })
     .populate("category");
+
   res.json(blogs);
 });
 
